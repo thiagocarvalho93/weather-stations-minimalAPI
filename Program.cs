@@ -43,6 +43,13 @@ app.MapGet("/data/{id:int}", async (int id, DataDb db) =>
 
 app.MapGet("/data", async (DataDb db) => await db.Logs.ToListAsync());
 
+app.MapDelete("/data", async (DataDb db) =>
+{
+    db.Logs.RemoveRange(db.Logs);
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
 app.Run();
 
 // Models and DTOs
